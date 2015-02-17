@@ -1,0 +1,137 @@
+
+<head>
+    <meta charset="utf-8">
+    <title>Movie Lookout</title>
+    <link rel="icon" href="assets/favicon.ico">
+    <!-- Bootstrap 3 -->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" charset="utf-8">
+        // Pause the video when the modal is closed
+        $(document).on('click', '.hanging-close', function (event) {
+            // Remove the src so the player itself gets removed, as this is the only
+            // reliable way to ensure the video stops playing in IE
+            $("#trailer-video-container").empty();
+        });
+        // Start playing the video whenever the trailer modal is opened
+        $(document).on('click', '.movie-tile', function (event) {
+            var trailerYouTubeId = $(this).attr('data-trailer-youtube-id')
+            var sourceUrl = 'http://www.youtube.com/embed/' + trailerYouTubeId + '?modestbranding=1;autohide=1&amp;showinfo=0&amp;controls=0;autoplay=1&html5=1';
+            $("#trailer-video-container").empty().append($("<iframe></iframe>", {
+              'id': 'trailer-video',
+              'type': 'text-html',
+              'src': sourceUrl,
+              'frameborder': 0
+            }));
+            // Add movie information to the modal
+            var title = $(this).attr('data-title')
+            var lead_act_1 = $(this).attr('data-lead1')
+            var lead_act_2 = $(this).attr('data-lead2')
+            var lead_act_3 = $(this).attr('data-lead3')
+            var director = $(this).attr('data-director')
+            var this_rating = $(this).attr('data-rate')
+            $("#actor-info").empty().append($("<div> Directed by "+director+".</p><p>Staring "+lead_act_1+", "+lead_act_2+", "+lead_act_3+".</p>"+"</div>"));
+            $("#this_title").empty().append($("<h2>"+title+"</h2>"));
+            $("#logo-info").empty().append($('<img />').attr('src', 'assets/lookout.svg').attr('height', '50px'));
+            // Add rating to the the modal
+            $("#rating").empty();
+            var i;
+            for (i = 0; i < this_rating; i++) {
+            $("#rating").append($("<i class='fa fa-star'></i>"));
+            }
+            t = 5 - this_rating;
+            for (i = 0; i < t; i++) {
+            $("#rating").append($("<i class='fa fa-star-o'></i>"));
+            }
+            $("i").animate({opacity: 0}, 100).first().animate({opacity: 1}, 600, function showNext() {
+            $(this).next("i").animate({opacity:1}, 600, showNext);
+          });
+        });
+
+    </script>
+</head>
+
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <!-- Trailer Video Modal -->
+    <div class="modal" id="trailer">
+      <div class="modal-dialog animated fadeIn">
+        <div class="modal-content">
+          <a href="#" class="hanging-close" data-dismiss="modal" aria-hidden="true">
+            <img src="assets/cross.svg">
+          </a>
+          <div class="row">
+          <div class="col-md-11" id="this_title"></div>
+          <div class="col-md-11" id="actor-info"></div>
+          <div class="col-md-11" id="rating"></div>
+          </div>
+          <div class="scale-media" id="trailer-video-container">
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Main Page Content -->
+ <div class="container">
+      <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <img class="col-md-2 animated fadeIn" src="assets/logo.svg" id="logo">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      
+<div class="col-md-6 col-lg-4 movie-tile text-center animated fadeInUp" data-trailer-youtube-id="5kLoPYkYs9I"
+data-lead1="Russell Crowe" data-lead2="Paul Bettany" data-lead3="Billy Boyd" data-director="Peter Weir" data-title="Master and Commander"
+data-rate="3" data-toggle="modal" data-target="#trailer">
+    <img src="assets/mc_poster.jpg" width="220" height="342">
+    <h2>Master and Commander</h2>
+</div>
+
+<div class="col-md-6 col-lg-4 movie-tile text-center animated fadeInUp" data-trailer-youtube-id="Pki6jbSbXIY"
+data-lead1="Elijah Wood" data-lead2="Ian McKellen" data-lead3="Viggo Mortensen" data-director="Peter Jackson" data-title="Lord of the Rings"
+data-rate="4" data-toggle="modal" data-target="#trailer">
+    <img src="assets/l_poster.jpg" width="220" height="342">
+    <h2>Lord of the Rings</h2>
+</div>
+
+<div class="col-md-6 col-lg-4 movie-tile text-center animated fadeInUp" data-trailer-youtube-id="8IBNZ6O2kMk"
+data-lead1="John Goodman" data-lead2="John Goodman" data-lead3="Steve Buscemi" data-director="Pete Docter" data-title="Monsters Inc"
+data-rate="4" data-toggle="modal" data-target="#trailer">
+    <img src="assets/m_poster.jpg" width="220" height="342">
+    <h2>Monsters Inc</h2>
+</div>
+
+<div class="col-md-6 col-lg-4 movie-tile text-center animated fadeInUp" data-trailer-youtube-id="NDMZHhcBHaQ"
+data-lead1="Tate Donovan" data-lead2="Danny DeVito" data-lead3="James Woods" data-director="Ron Clements" data-title="Hercules"
+data-rate="3" data-toggle="modal" data-target="#trailer">
+    <img src="assets/h_poster.jpg" width="220" height="342">
+    <h2>Hercules</h2>
+</div>
+
+<div class="col-md-6 col-lg-4 movie-tile text-center animated fadeInUp" data-trailer-youtube-id="aO1bYukdvLI"
+data-lead1="Owen Wilson" data-lead2="Adrien Brody" data-lead3="Jason Schwartzman" data-director="Wes Anderson" data-title="The Darjeeling Limited"
+data-rate="3" data-toggle="modal" data-target="#trailer">
+    <img src="assets/d_poster.png" width="220" height="342">
+    <h2>The Darjeeling Limited</h2>
+</div>
+
+<div class="col-md-6 col-lg-4 movie-tile text-center animated fadeInUp" data-trailer-youtube-id="6rRn8kM4-ds"
+data-lead1="Natalie Portman" data-lead2="Hugo Weaving" data-lead3="John Hurt" data-director="James McTeigue" data-title="V for Vendetta"
+data-rate="4" data-toggle="modal" data-target="#trailer">
+    <img src="assets/v_poster.jpg" width="220" height="342">
+    <h2>V for Vendetta</h2>
+</div>
+
+    </div>
+  </body>
+</html>
